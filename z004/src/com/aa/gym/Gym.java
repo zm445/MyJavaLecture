@@ -5,53 +5,59 @@ import java.util.Scanner;
 
 import com.aa.gym.data.Member;
 import com.aa.gym.display.Title;
+import com.aa.gym.proc.MenuExit;
+import com.aa.gym.proc.MenuMemberDel;
+import com.aa.gym.proc.MenuMemberEdit;
+import com.aa.gym.proc.MenuMemberList;
+import com.aa.gym.proc.MenuMemberReg;
 
 public class Gym {
 
 	void proc() {
 		
 		ArrayList<Member> members = new ArrayList<Member>();
-		
-		members.add(new Member(1,"이순신","010-1234-5678","남자"));
-		members.add(new Member(1,"김민겸","010-1234-5678","남자"));
-		members.add(new Member(1,"김정훈","010-1234-5678","남자"));
-		
 		System.out.println(Title.TITLE);
 		
-		Scanner sc = new Scanner(System.in);
-		boolean isNotEnd = true;
-		while(isNotEnd) {
-			System.out.println("명령을 입력: (1.회원 추가 / 2.회원목록 보기 / 3.회원삭제 / 4.회원수정 / e.프로그램 종료)");
-			String cmd = sc.next();
-			switch (cmd) {
-			case "1":	
+		members.add(new Member(1,"김태민","010-1234-5678","남자"));
+		members.add(new Member(2,"김정훈","010-1234-5678","남자"));
+		members.add(new Member(3,"김병훈","010-1234-5678","남자"));
+		
+		Select:
+		while(true) {
+			Scanner scan = new Scanner(System.in);
+			
+			System.out.print("[1]회원추가 [2]회원목록보기 [3]회원삭제 [4]회원수정 [e]종료 :");
+			String choice = scan.next();
+			
+			switch (choice) {
+			case "1":
+				MenuMemberReg menuMemberReg = new MenuMemberReg();
+				menuMemberReg.proc(members);
 				break;
-			case "2":	
-				
+			case "2":
+				MenuMemberList menuMemberList = new MenuMemberList();
+				menuMemberList.proc(members);
 				break;
-			case "3":	
-				
+			case "3":
+				MenuMemberDel menuMemberDel = new MenuMemberDel();
+				menuMemberDel.proc(members);
 				break;
-			case "4":	
-				
+			case "4":
+				MenuMemberEdit menuMemberEdit = new MenuMemberEdit();
+				menuMemberEdit.proc(members);
 				break;
-			case "e":	
-				
-				break;
+			case "e":
+				MenuExit menuExit = new MenuExit();
+				menuExit.proc();				
+				break Select; 
 			default:
-				System.out.println("잘못된 명령입니다.");
-				
+				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
 			
-			
-			
 		}
-		
-		
-		
-		
-		
 	}
+	
+	
 	
 }
